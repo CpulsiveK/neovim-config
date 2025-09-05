@@ -20,4 +20,13 @@ vim.api.nvim_create_autocmd("BufEnter", {
   end,
 })
 
+-- Aggressive autosave in Neovim
+vim.api.nvim_create_autocmd(
+  { "InsertLeave", "TextChanged", "BufLeave", "FocusLost" },
+  {
+    pattern = "*",
+    command = "silent! wall",  -- save all modified buffers
+  }
+)
+
 
