@@ -19,17 +19,15 @@ return {
     lazy = false,
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local servers = { "lua_ls", "ts_ls", "yamlls" }
 
-      local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.yamlls.setup({
-        capabilities = capabilities,
-      })
+      for _, lsp in ipairs(servers) do
+        vim.lsp.config(lsp, {
+          capabilities = capabilities,
+        })
+        
+        vim.lsp.enable(lsp)
+      end
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
