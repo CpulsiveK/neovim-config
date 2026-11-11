@@ -738,10 +738,13 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
+    clangd = {}, -- C/C++
+    jdtls = {}, -- Java
+    markdown_oxide = {}, -- Markdown
+    vtsls = {}, -- TypeScript/JavaScript
+    yamlls = {}, -- YAML
     -- gopls = {},
     -- pyright = {},
-    -- tsc = {},
     --
     -- Some languages (like rust) have entire language plugins that can be useful:
     --    https://github.com/mrcjkb/rustaceanvim
@@ -809,6 +812,9 @@ do
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
+    'cpptools', -- C/C++ debug adapter
+    'markdownlint', -- Markdown linter (used by nvim-lint)
+    'prettier', -- Formatter
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
